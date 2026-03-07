@@ -67,7 +67,7 @@ Respond with ONLY a valid JSON array. No markdown, no code fences, no extra text
 The "answer" field is the zero-based index of the correct option.`;
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     const requestBody = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: {
