@@ -1,4 +1,4 @@
-// quiz.js — CompTIA A+, Network+, Security+ AI Quiz Generator (Gemini-powered)
+// quiz.js — CompTIA A+, Network+, Security+ Quiz Generator
 
 (function () {
   "use strict";
@@ -87,7 +87,7 @@
     }
   }
 
-  /* ───────── Fetch Questions from Gemini ───────── */
+  /* ───────── Fetch Questions ───────── */
 
   function fetchQuestions(exam, count) {
     return fetch(API_URL, {

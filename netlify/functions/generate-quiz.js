@@ -1,16 +1,16 @@
 // Netlify serverless function — proxies quiz requests to Gemini API
 
-const ALLOWED_EXAMS = ["aplus", "networkplus", "securityplus"];
+const ALLOWED_EXAMS = ["aplus_core1", "aplus_core2", "networkplus", "securityplus"];
 const MAX_QUESTIONS = 20;
 
 const EXAM_LABELS = {
-  aplus: "CompTIA A+ (220-1101 & 220-1102)",
-  networkplus: "CompTIA Network+ (N10-009)",
-  securityplus: "CompTIA Security+ (SY0-701)"
+  aplus_core1: "CompTIA A+ Core 1 (220-1101) — covers mobile devices, networking, hardware, virtualization, cloud computing, and hardware/network troubleshooting",
+  aplus_core2: "CompTIA A+ Core 2 (220-1102) — covers operating systems, security, software troubleshooting, and operational procedures",
+  networkplus: "CompTIA Network+ (N10-009) — covers network fundamentals, implementations, operations, security, and troubleshooting",
+  securityplus: "CompTIA Security+ (SY0-701) — covers threats, vulnerabilities, architecture, operations, and incident response"
 };
 
 exports.handler = async function (event) {
-  // CORS headers
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -76,7 +76,8 @@ The "answer" field is the zero-based index of the correct option.`;
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.9,
-          maxOutputTokens: 8192
+          maxOutputTokens: 8192,
+          responseMimeType: "application/json"
         }
       })
     });
@@ -84,29 +85,29 @@ The "answer" field is the zero-based index of the correct option.`;
     if (!res.ok) {
       const errText = await res.text();
       console.error("Gemini API error:", res.status, errText);
-      return { statusCode: 502, headers, body: JSON.stringify({ error: "AI service error" }) };
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "Quiz generation failed. Status: " + res.status }) };
     }
 
     const data = await res.json();
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!text) {
-      return { statusCode: 502, headers, body: JSON.stringify({ error: "Empty response from AI" }) };
+      console.error("Empty Gemini response:", JSON.stringify(data));
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "Empty response from quiz service" }) };
     }
 
-    // Strip markdown code fences if Gemini wraps the response
+    // Strip markdown code fences if present
     const cleaned = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
     const questions = JSON.parse(cleaned);
 
-    // Validate structure
     if (!Array.isArray(questions) || questions.length === 0) {
-      return { statusCode: 502, headers, body: JSON.stringify({ error: "Invalid AI response format" }) };
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "Invalid response format" }) };
     }
 
     for (const q of questions) {
       if (!q.q || !Array.isArray(q.options) || q.options.length !== 4 ||
           typeof q.answer !== "number" || q.answer < 0 || q.answer > 3 || !q.explanation) {
-        return { statusCode: 502, headers, body: JSON.stringify({ error: "Malformed question from AI" }) };
+        return { statusCode: 502, headers, body: JSON.stringify({ error: "Malformed question data" }) };
       }
     }
 
@@ -114,6 +115,6 @@ The "answer" field is the zero-based index of the correct option.`;
 
   } catch (err) {
     console.error("Function error:", err);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: "Internal server error" }) };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: "Internal server error: " + err.message }) };
   }
 };
