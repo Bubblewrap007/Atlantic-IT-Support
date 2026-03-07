@@ -9,7 +9,6 @@ Local IT support for home and small business environments in Atlantic County, NJ
 - Smart Home / IoT device setup
 - Malware cleanup
 - Email & Cloud support (Gmail, Outlook, M365)
-- Home entertainment setup
 
 ## CompTIA AI Quiz Generator
 
