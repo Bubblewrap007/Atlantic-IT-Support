@@ -1,0 +1,119 @@
+// Netlify serverless function — proxies quiz requests to Gemini API
+
+const ALLOWED_EXAMS = ["aplus", "networkplus", "securityplus"];
+const MAX_QUESTIONS = 20;
+
+const EXAM_LABELS = {
+  aplus: "CompTIA A+ (220-1101 & 220-1102)",
+  networkplus: "CompTIA Network+ (N10-009)",
+  securityplus: "CompTIA Security+ (SY0-701)"
+};
+
+exports.handler = async function (event) {
+  // CORS headers
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": "application/json"
+  };
+
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers, body: "" };
+  }
+
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return { statusCode: 500, headers, body: JSON.stringify({ error: "API key not configured" }) };
+  }
+
+  let exam, count;
+  try {
+    const body = JSON.parse(event.body);
+    exam = body.exam;
+    count = Math.min(Math.max(parseInt(body.count, 10) || 10, 1), MAX_QUESTIONS);
+  } catch (e) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid request body" }) };
+  }
+
+  if (!ALLOWED_EXAMS.includes(exam)) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid exam type" }) };
+  }
+
+  const prompt = `Generate exactly ${count} multiple-choice practice questions for the ${EXAM_LABELS[exam]} certification exam.
+
+Requirements:
+- Each question must have exactly 4 answer options
+- Only one option should be correct
+- Include a brief explanation for why the correct answer is right
+- Questions should cover a variety of exam objectives
+- Questions should be realistic exam-style, scenario-based when appropriate
+- Do NOT use actual exam questions — create original practice questions
+
+Respond with ONLY a valid JSON array. No markdown, no code fences, no extra text. Each element must follow this exact structure:
+[
+  {
+    "q": "The question text",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "answer": 0,
+    "explanation": "Why the correct answer is right"
+  }
+]
+
+The "answer" field is the zero-based index of the correct option.`;
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.9,
+          maxOutputTokens: 8192
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error("Gemini API error:", res.status, errText);
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "AI service error" }) };
+    }
+
+    const data = await res.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "Empty response from AI" }) };
+    }
+
+    // Strip markdown code fences if Gemini wraps the response
+    const cleaned = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+    const questions = JSON.parse(cleaned);
+
+    // Validate structure
+    if (!Array.isArray(questions) || questions.length === 0) {
+      return { statusCode: 502, headers, body: JSON.stringify({ error: "Invalid AI response format" }) };
+    }
+
+    for (const q of questions) {
+      if (!q.q || !Array.isArray(q.options) || q.options.length !== 4 ||
+          typeof q.answer !== "number" || q.answer < 0 || q.answer > 3 || !q.explanation) {
+        return { statusCode: 502, headers, body: JSON.stringify({ error: "Malformed question from AI" }) };
+      }
+    }
+
+    return { statusCode: 200, headers, body: JSON.stringify({ questions }) };
+
+  } catch (err) {
+    console.error("Function error:", err);
+    return { statusCode: 500, headers, body: JSON.stringify({ error: "Internal server error" }) };
+  }
+};

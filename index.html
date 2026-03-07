@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://www.securalith.com/; frame-src https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
   <meta name="description" content="Local IT support in Atlantic County, NJ. Computers, Wi-Fi, smart home setup, cleanup, and tech diagnostics."/>
   <link rel="icon" type="image/png" href="favicon.png">
   <title>Atlantic IT Support</title>
@@ -16,7 +17,10 @@
       <div class="logo">
         <img src="Atlantic IT logo.png" alt="Atlantic IT Support logo" />
       </div>
-      <div>Atlantic IT Support</div>
+      <div>
+        <div>Atlantic IT Support</div>
+        <div class="small" style="margin-top: 2px;"><a href="tel:+16092254127" style="color: inherit; text-decoration: none;">(609) 225-4127</a></div>
+      </div>
     </div>
 
     <!-- Hamburger button (mobile) -->
@@ -32,10 +36,10 @@
 
     <!-- Nav links (desktop + mobile dropdown) -->
     <nav id="mobileMenu" class="links" aria-label="Primary navigation">
-      <a href="#services">Tech Services</a>
-      <a href="comptia-guidance.html">CompTIA Guidance</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html">Tech Services</a>
+      <a href="remote-support.html">Remote Support</a>
+      <a href="comptia-guidance.html">CompTIA Quiz</a>
+      <a href="about.html">About</a>
     </nav>
 
     <a class="btn primary" href="#contact">Request Service</a>
@@ -54,8 +58,8 @@
         <strong>Atlantic County, NJ</strong>. Available <strong>on-site or remotely</strong>.
       </p>
 
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <a class="btn primary" href="#evaluation">Free 15-Minute Evaluation</a>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:36px;">
+        <a class="btn primary" href="#evaluation" style="padding-left:32px; padding-right:32px;">Free 15-Minute Evaluation</a>
       </div>
     </div>
 
@@ -64,6 +68,17 @@
       <div class="price"><strong>Wi-Fi issues</strong><span class="small">Remote or on-site</span></div>
       <div class="price"><strong>Slow computers</strong><span class="small">Cleanup & fixes</span></div>
       <div class="price"><strong>Smart home setup</strong><span class="small">Pairing & setup</span></div>
+      
+      <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:center;">
+        <a href="#security-dashboard" class="hero-shield-link">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <img src="shield-logo.svg" alt="Securalith" class="hero-shield" />
+            <span style="font-size:13px; font-weight:700; color:var(--text);">Securalith</span>
+            <span class="small" style="color:var(--text); margin-top:2px;">Try my new cybersecurity tool!</span>
+          </div>
+          <span class="beta-label">(Beta)</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -114,54 +129,6 @@
   </div>
 </section>
 
-
-<section id="portfolio" class="section">
-  <h2>Professional Background & Certifications</h2>
-  <p class="small">
-    This site also serves as a professional portfolio for employers and clients.
-  </p>
-
-  <div class="badges">
-    <div class="badge">
-      <img src="My degree img.png" alt="Computer Science Graduate" />
-      <span>Computer Science Graduate</span>
-    </div>
-
-    <div class="badge">
-      <img src="comptia-a-ce-certification.1.png" alt="CompTIA A+ Certification" />
-      <span>CompTIA A+</span>
-    </div>
-
-    <div class="badge">
-      <img src="comptia-network-ce-certification.1.png" alt="CompTIA Network+ Certification" />
-      <span>CompTIA Network+</span>
-    </div>
-
-    <div class="badge">
-      <img src="aws-certified-cloud-practitioner.png" alt="AWS Cloud Practitioner Certification" />
-      <span>AWS Cloud Practitioner</span>
-    </div>
-  </div>
-
-  <div class="card portfolio-cta" style="margin-top:16px;">
-    <h3>CompTIA A+ & Network+ Guidance</h3>
-    <p class="small">
-      One-on-one study guidance and accountability for learners pursuing CompTIA certifications.
-      This is a separate page designed for students and employers.
-    </p>
-    <div style="margin-top:10px;">
-      <a class="btn primary" href="comptia-guidance.html">View CompTIA Guidance Page</a>
-    </div>
-  </div>
-
-  <div class="notice">
-    Services are focused on practical Tier 1 and small business IT support.
-    More advanced systems work is handled through formal engagements, contracts, or employer roles.
-  </div>
-</section>
-
-
-
 <section id="contact" class="section">
   <h2>Contact</h2>
 
@@ -181,7 +148,15 @@
 
           <div class="field">
             <label for="contactInfo">Phone Number or Email Address</label>
-            <input id="contactInfo" name="contact" type="text" placeholder="Enter your phone or email" required />
+            <input 
+              id="contactInfo" 
+              name="contact" 
+              type="text" 
+              placeholder="Enter your phone or email" 
+              pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4})$"
+              title="Please enter a valid email address or phone number (e.g., 123-456-7890)"
+              required 
+            />
           </div>
         </div>
 
@@ -230,11 +205,7 @@
     </div>
 
     <div class="card">
-      <h3>Direct Contact</h3>
-      <ul class="contact-list">
-        <li>Email: <strong><a href="mailto:shawn@atlanticitsupport.com">shawn@atlanticitsupport.com</a></strong></li>
-        <li>Ph: <strong>(609)-225-4127</strong></li>
-      </ul>
+      <h3>Our Commitment</h3>
 
 
       <div class="notice">
@@ -254,6 +225,79 @@
         <strong>Pricing & Billing:</strong>
           Pricing is discussed and approved before work begins. No charges are incurred
           without client confirmation. Payment is accepted via invoice, Zelle, or cash.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>CompTIA Practice Quizzes</h2>
+  <div class="card">
+    <p class="small">
+      Free practice quizzes for CompTIA A+, Network+, and Security+.
+      Randomized questions with instant feedback and explanations.
+    </p>
+    <div style="margin-top:10px;">
+      <a class="btn primary" href="comptia-guidance.html">Take a Quiz</a>
+    </div>
+  </div>
+</section>
+
+<section id="security-dashboard" class="section">
+  <h2>Securalith</h2>
+  <div class="grid">
+    <div class="card" style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 400px;">
+      <!-- Background glow effects -->
+      <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(110,231,255,0.15), transparent 70%); animation: electricPulse 3s ease-in-out infinite;"></div>
+      <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(167,139,250,0.1), transparent 60%); animation: electricPulse 3s ease-in-out infinite; animation-delay: 0.3s;"></div>
+      
+      <!-- Shield Logo -->
+      <div style="position: relative; z-index: 1; width: 100%; max-width: 350px; height: 350px; display: flex; align-items: center; justify-content: center;">
+        <a href="https://www.securalith.com/" target="_blank" rel="noopener noreferrer" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, filter 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.filter='brightness(1.1)'" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1)'">
+          <img 
+            src="shield-logo.svg" 
+            alt="Securalith Shield Logo" 
+            style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 30px rgba(110,231,255,0.4)) drop-shadow(0 10px 40px rgba(0,100,200,0.3)); cursor: pointer;"
+          />
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Professional Security Platform</h3>
+      <p class="small" style="margin-bottom: 16px;">
+        Comprehensive security monitoring and vulnerability assessment platform built for modern organizations.
+        Track assets, run automated scans, and manage your security posture with confidence.
+      </p>
+      
+      <div style="display: grid; gap: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(110,231,255,0.05); border-radius: 10px; border-left: 3px solid var(--accent);">
+          <span style="font-size: 20px;">🔒</span>
+          <div>
+            <strong style="display: block; font-size: 14px;">Asset Management</strong>
+            <span class="small">Track domains, IPs, and network assets</span>
+          </div>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(110,231,255,0.05); border-radius: 10px; border-left: 3px solid var(--accent);">
+          <span style="font-size: 20px;">🔍</span>
+          <div>
+            <strong style="display: block; font-size: 14px;">Automated Security Scans</strong>
+            <span class="small">Identify vulnerabilities and security risks</span>
+          </div>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(110,231,255,0.05); border-radius: 10px; border-left: 3px solid var(--accent);">
+          <span style="font-size: 20px;">📊</span>
+          <div>
+            <strong style="display: block; font-size: 14px;">Real-time Analytics</strong>
+            <span class="small">Comprehensive dashboards and reports</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice" style="border-left: 3px solid var(--accent2); background: rgba(167,139,250,0.06);">
+        <strong>Enterprise-grade security monitoring</strong> developed with modern web technologies and security best practices.
       </div>
     </div>
   </div>

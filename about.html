@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+  <meta name="description" content="About Atlantic IT Support - Meet Shawn, your local IT support specialist"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>About - Atlantic IT Support</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<div class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">
+        <img src="Atlantic IT logo.png" alt="Atlantic IT Support logo" />
+      </div>
+      <div>
+        <div>Atlantic IT Support</div>
+        <div class="small" style="margin-top: 2px;"><a href="tel:+16092254127" style="color: inherit; text-decoration: none;">(609) 225-4127</a></div>
+      </div>
+    </div>
+
+    <!-- Hamburger button (mobile) -->
+    <button class="menu-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Nav links (desktop + mobile dropdown) -->
+    <nav id="mobileMenu" class="links" aria-label="Primary navigation">
+      <a href="index.html">Tech Services</a>
+      <a href="remote-support.html">Remote Support</a>
+      <a href="comptia-guidance.html">CompTIA Quiz</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <a class="btn primary" href="index.html#contact">Request Service</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="section">
+  <h1>About Me</h1>
+  <div class="card">
+    <p>
+      I'm Shawn, and I help people and small businesses in Atlantic County get technology working reliably. 
+      I approach every support request with the same care I'd use on my own systems—taking time to understand 
+      the issue, explaining what's happening, and making sure you feel confident about the solution.
+    </p>
+    <p>
+      My background includes a Computer Science degree and professional certifications in IT infrastructure. 
+      I've worked with everything from personal computers and home networks to small business environments. 
+      More importantly, I genuinely enjoy helping people untangle tech problems and feel confident with their tools again.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Professional Background & Certifications</h2>
+  <p class="small">
+    A summary of my professional qualifications and expertise in IT support and technology.
+  </p>
+
+  <div class="badges">
+    <div class="badge">
+      <img src="My degree img.png" alt="Computer Science Graduate" />
+      <span>Computer Science Graduate</span>
+    </div>
+
+    <div class="badge">
+      <img src="comptia-a-ce-certification.1.png" alt="CompTIA A+ Certification" />
+      <span>CompTIA A+</span>
+    </div>
+
+    <div class="badge">
+      <img src="comptia-network-ce-certification.1.png" alt="CompTIA Network+ Certification" />
+      <span>CompTIA Network+</span>
+    </div>
+
+    <div class="badge">
+      <img src="aws-certified-cloud-practitioner.png" alt="AWS Cloud Practitioner Certification" />
+      <span>AWS Cloud Practitioner</span>
+    </div>
+  </div>
+
+  <div class="notice">
+    Services are focused on practical Tier 1 and small business IT support.
+    More advanced systems work is handled through formal engagements, contracts, or employer roles.
+  </div>
+</section>
+
+<section class="section">
+  <h2>My Approach</h2>
+  <div class="card">
+    <div class="notice">
+      <strong>Client Trust & Care:</strong>
+      My goal is to provide clear, honest, and responsible support. Work is explained
+      before it's performed, access is handled securely, and systems are treated
+      with care as if they were my own.
+    </div>
+
+    <div class="notice">
+      <strong>Access & Security:</strong>
+      Client credentials are never retained. Access is provided directly by the
+      client or through temporary credentials that may be revoked after service.
+    </div>
+
+    <div class="notice">
+      <strong>Pricing & Billing:</strong>
+      Pricing is discussed and approved before work begins. No charges are incurred
+      without client confirmation. Payment is accepted via invoice, Zelle, or cash.
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="card">
+    © <span id="yr"></span> Atlantic IT Support. All rights reserved.
+  </div>
+</section>
+
+</main>
+
+<!-- Separate script file -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content="One-on-one CompTIA A+ and Network+ study guidance, accountability, and concept explanation."/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' /.netlify/functions/; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+  <meta name="description" content="Free AI-powered CompTIA A+, Network+, and Security+ practice quiz generator. Unique questions every time, powered by Gemini AI."/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <title>CompTIA Guidance | Atlantic IT Support</title>
+  <title>CompTIA Quiz | Atlantic IT Support</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -16,7 +17,10 @@
       <div class="logo">
         <img src="Atlantic IT logo.png" alt="Atlantic IT Support logo" />
       </div>
-      <div>Atlantic IT Support</div>
+      <div>
+        <div>Atlantic IT Support</div>
+        <div class="small" style="margin-top: 2px;"><a href="tel:+16092254127" style="color: inherit; text-decoration: none;">(609) 225-4127</a></div>
+      </div>
     </div>
 
     <!-- Hamburger button (mobile) -->
@@ -33,12 +37,12 @@
     <!-- Nav links (desktop + mobile dropdown) -->
     <nav id="mobileMenu" class="links" aria-label="Primary navigation">
       <a href="index.html">Tech Services</a>
-      <a href="comptia-guidance.html">CompTIA Guidance</a>
-      <a href="index.html#portfolio">Portfolio</a>
-      <a href="index.html#contact">Contact</a>
+      <a href="remote-support.html">Remote Support</a>
+      <a href="comptia-guidance.html">CompTIA Quiz</a>
+      <a href="about.html">About</a>
     </nav>
 
-    <a class="btn primary" href="#contact">Request Guidance</a>
+    <a class="btn primary" href="#quiz-section">Take a Quiz</a>
   </div>
 </div>
 
@@ -47,116 +51,146 @@
 <section class="hero">
   <div class="grid">
     <div class="card">
-      <h1>CompTIA Study Guidance</h1>
-      <h3>Structured help. Real accountability.</h3>
+      <h1>CompTIA AI Quiz Generator</h1>
+      <h3>Powered by Gemini. Free. Unique every time.</h3>
       <p>
-        One-on-one guidance for learners preparing for
-        <strong>CompTIA A+</strong> and <strong>Network+</strong>.
-        Designed to build understanding, confidence, and exam readiness.
+        AI-generated practice questions for <strong>CompTIA A+</strong>,
+        <strong>Network+</strong>, and <strong>Security+</strong>.
+        Every quiz is unique with instant feedback and explanations.
       </p>
 
-      <a class="btn primary" href="#contact">Request Guidance</a>
+      <a class="btn primary" href="#quiz-section" style="margin-top:24px;">Start a Quiz</a>
     </div>
 
     <div class="card">
-      <h3>What this includes</h3>
-      <div class="price"><strong>Study planning</strong><span class="small">Clear roadmap</span></div>
-      <div class="price"><strong>Concept breakdowns</strong><span class="small">Plain English</span></div>
-      <div class="price"><strong>Accountability</strong><span class="small">Stay consistent</span></div>
+      <h3>AI-powered exams</h3>
+      <div class="price"><strong>CompTIA A+</strong><span class="small">220-1101 & 220-1102</span></div>
+      <div class="price"><strong>Network+</strong><span class="small">N10-009</span></div>
+      <div class="price"><strong>Security+</strong><span class="small">SY0-701</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz-section" class="section">
+  <h2>Quiz Generator</h2>
+
+  <!-- ───── Start Screen ───── -->
+  <div id="quizStart" class="card quiz-card">
+    <h3>Choose your exam</h3>
+    <div class="exam-select">
+      <button class="exam-btn" data-exam="aplus">
+        <span class="exam-icon">A+</span>
+        <span class="exam-label">CompTIA A+</span>
+        <span class="small">Hardware, OS, troubleshooting</span>
+      </button>
+      <button class="exam-btn" data-exam="networkplus">
+        <span class="exam-icon">N+</span>
+        <span class="exam-label">CompTIA Network+</span>
+        <span class="small">Networking, protocols, infrastructure</span>
+      </button>
+      <button class="exam-btn" data-exam="securityplus">
+        <span class="exam-icon">S+</span>
+        <span class="exam-label">CompTIA Security+</span>
+        <span class="small">Threats, crypto, access control</span>
+      </button>
+    </div>
+
+    <h3 style="margin-top:20px;">Number of questions</h3>
+    <div class="length-select">
+      <button class="length-btn" data-length="5">5</button>
+      <button class="length-btn" data-length="10">10</button>
+      <button class="length-btn" data-length="15">15</button>
+      <button class="length-btn" data-length="20">20</button>
+    </div>
+
+    <button id="beginQuiz" class="btn primary quiz-begin" disabled>Begin Quiz</button>
+  </div>
+
+  <!-- ───── Loading Screen ───── -->
+  <div id="quizLoading" class="card quiz-card hidden">
+    <div class="loading-wrap">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Generating your quiz with Gemini AI...</p>
+      <p class="small">This usually takes a few seconds</p>
+    </div>
+  </div>
+
+  <!-- ───── Active Quiz ───── -->
+  <div id="quizActive" class="card quiz-card hidden">
+    <div class="quiz-header">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar">
+          <div id="progressBar" class="quiz-progress-fill"></div>
+        </div>
+        <span id="progressText" class="small">Question 1 of 10</span>
+      </div>
+      <span id="scoreText" class="quiz-score small">Score: 0/0</span>
+    </div>
+
+    <p id="questionText" class="quiz-question"></p>
+
+    <ul id="optionsList" class="quiz-options"></ul>
+
+    <div id="feedback" class="quiz-feedback hidden"></div>
+
+    <button id="nextBtn" class="btn primary quiz-next" disabled>Next Question</button>
+  </div>
+
+  <!-- ───── Results ───── -->
+  <div id="quizResult" class="card quiz-card hidden">
+    <h3 class="result-title">Quiz Complete</h3>
+
+    <div class="result-ring-wrap">
+      <svg class="result-ring" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+        <circle id="scoreRing" cx="60" cy="60" r="54" fill="none" stroke="url(#ringGrad)" stroke-width="10"
+                stroke-linecap="round" transform="rotate(-90 60 60)"
+                style="transition: stroke-dashoffset 1s ease;"/>
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent2)"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="result-ring-text">
+        <span id="finalPercent" class="result-pct">0%</span>
+      </div>
+    </div>
+
+    <p class="result-score"><span id="finalScore">0</span> / <span id="finalTotal">0</span> correct</p>
+    <p id="finalMsg" class="result-msg"></p>
+
+    <div class="result-actions">
+      <button id="retryBtn" class="btn primary">Try Again</button>
+      <button id="newQuizBtn" class="btn">New Quiz</button>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>What I Help With</h2>
-  <div class="cols">
-    <div class="card"><h3>CompTIA A+</h3><p class="small">Hardware, operating systems, troubleshooting, exam strategy</p></div>
-    <div class="card"><h3>CompTIA Network+</h3><p class="small">Networking fundamentals, protocols, troubleshooting, concepts</p></div>
-    <div class="card"><h3>Study Structure</h3><p class="small">Resource selection, pacing, realistic milestones</p></div>
-    <div class="card"><h3>Accountability</h3><p class="small">Check-ins to keep momentum and consistency</p></div>
-    <div class="card"><h3>Concept Clarity</h3><p class="small">Breaking down confusing topics without fluff</p></div>
-    <div class="card"><h3>Exam Readiness</h3><p class="small">Confidence building before test day</p></div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>What This Is — and Is Not</h2>
+  <h2>About This Quiz Generator</h2>
   <div class="card">
     <ul class="small">
-      <li>This is <strong>guidance and mentorship</strong>, not exam dumps</li>
-      <li>No cheating, leaked questions, or guarantees</li>
-      <li>Focus is understanding, not memorization</li>
-      <li>Support is remote and scheduled</li>
+      <li>Questions are generated by Gemini AI — unique every time</li>
+      <li>Covers A+, Network+, and Security+ exam objectives</li>
+      <li>Instant feedback with explanations for every answer</li>
+      <li>No sign-up, no tracking, completely free</li>
+      <li>Questions are AI-generated for practice only and are not from actual exams</li>
     </ul>
-  </div>
-</section>
-
-<section id="contact" class="section">
-  <h2>Request CompTIA Guidance</h2>
-
-  <div class="grid contact-grid">
-    <div class="card">
-      <p class="small">
-        Use the form below to request CompTIA A+ or Network+ guidance.
-        I’ll follow up with next steps.
-      </p>
-
-      <form id="guidanceForm" class="support-form">
-        <div class="row">
-          <div class="field">
-            <label for="name">Full Name</label>
-            <input id="name" name="name" type="text" required />
-          </div>
-
-          <div class="field">
-            <label for="contact">Email Address</label>
-            <input id="contact" name="contact" type="email" required />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label for="exam">Exam</label>
-            <select id="exam" name="exam" required>
-              <option value="" selected>Select exam</option>
-              <option>CompTIA A+</option>
-              <option>CompTIA Network+</option>
-              <option>Both</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="experience">Current Experience Level</label>
-            <input id="experience" name="experience" placeholder="Beginner / Some IT experience" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="details">Goals or Challenges</label>
-          <textarea
-            id="details"
-            name="details"
-            placeholder="Describe what you're struggling with or hoping to improve."
-            required
-          ></textarea>
-        </div>
-
-        <button class="btn primary" type="submit">Submit Request</button>
-      </form>
-    </div>
   </div>
 </section>
 
 <section class="footer">
   <div class="card">
-    © <span id="yr"></span> Atlantic IT Support. All rights reserved.
+    &copy; <span id="yr"></span> Atlantic IT Support. All rights reserved.
   </div>
 </section>
 
 </main>
 
-<!-- Shared script file (hamburger + forms + year) -->
 <script src="script.js"></script>
+<script src="quiz.js"></script>
 
 </body>
 </html>

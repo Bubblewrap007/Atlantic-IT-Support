@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+  <meta name="description" content="Affordable remote IT support. Fast, practical help for common computer and connectivity issues."/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Remote IT Support | Atlantic IT Support</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<div class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">
+        <img src="Atlantic IT logo.png" alt="Atlantic IT Support logo" />
+      </div>
+      <div>
+        <div>Atlantic IT Support</div>
+        <div class="small" style="margin-top: 2px;"><a href="tel:+16092254127" style="color: inherit; text-decoration: none;">(609) 225-4127</a></div>
+      </div>
+    </div>
+
+    <!-- Hamburger -->
+    <button class="menu-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="mobileMenu" class="links" aria-label="Primary navigation">
+      <a href="index.html">Tech Services</a>
+      <a href="remote-support.html">Remote Support</a>
+      <a href="comptia-guidance.html">CompTIA Quiz</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <a class="btn primary" href="#contact">Remote Session</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <div class="grid">
+    <div class="card">
+      <h1>Remote IT Support</h1>
+      <h3>Fast help. Clear pricing.</h3>
+      <p>
+        Affordable, one-on-one remote assistance for common computer and
+        connectivity issues. No travel, no pressure, no long-term commitment.
+      </p>
+
+      <a class="btn primary" href="#pricing">View Pricing</a>
+    </div>
+
+    <div class="card">
+      <h3>Good fit for</h3>
+      <div class="price"><strong>Slow computers</strong><span class="small">Performance issues</span></div>
+      <div class="price"><strong>Wi-Fi problems</strong><span class="small">Dropouts & setup</span></div>
+      <div class="price"><strong>Software issues</strong><span class="small">Email, OS, apps</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>What I Can Help With (Remotely)</h2>
+  <div class="cols">
+    <div class="card"><h3>PC & Laptop Issues</h3><p class="small">Slow performance, system cleanup, basic troubleshooting</p></div>
+    <div class="card"><h3>Wi-Fi & Connectivity</h3><p class="small">Router setup, signal issues, device connections</p></div>
+    <div class="card"><h3>Malware & Pop-ups</h3><p class="small">Adware, browser hijackers, unwanted software</p></div>
+    <div class="card"><h3>Email & Accounts</h3><p class="small">Gmail, Outlook, login and sync issues</p></div>
+    <div class="card"><h3>OS & Software Help</h3><p class="small">Windows settings, updates, basic fixes</p></div>
+    <div class="card"><h3>Guidance & Recommendations</h3><p class="small">Clear next steps if a remote fix isn’t ideal</p></div>
+  </div>
+</section>
+
+<section id="pricing" class="section">
+  <h2>Pricing</h2>
+
+  <div class="cols">
+    <div class="card">
+      <h3>Free 15-Minute Evaluation</h3>
+      <p class="small">
+        Quick assessment to understand the issue and confirm whether
+        remote support is a good fit.
+      </p>
+      <ul class="small">
+        <li>No fixes performed</li>
+        <li>No obligation</li>
+        <li>Clear next steps</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Remote Support Session</h3>
+      <p class="small">
+        <strong>$30 — up to 60 minutes</strong> of focused, hands-on remote assistance.
+      </p>
+      <ul class="small">
+        <li>Screen sharing and active troubleshooting</li>
+        <li>Best for single-issue resolution</li>
+        <li>Additional time confirmed before continuing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2>Request Remote Support</h2>
+
+  <div class="grid contact-grid">
+    <div class="card">
+      <p class="small">
+        Submit the form below to request a free evaluation or a paid remote session.
+        I’ll follow up with next steps.
+      </p>
+
+      <form id="supportForm" class="support-form">
+        <div class="row">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+
+          <div class="field">
+            <label for="contact">Email Address</label>
+            <input 
+              id="contact" 
+              name="contact" 
+              type="email" 
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Please enter a valid email address"
+              required 
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="service">Request Type</label>
+            <select id="service" name="service" required>
+              <option value="" selected>Select an option</option>
+              <option>Free 15-Minute Evaluation</option>
+              <option>$30 Remote Support Session</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="issue">Issue Summary</label>
+            <input id="issue" name="issue" placeholder="Short description" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="details">Issue Details</label>
+          <textarea
+            id="details"
+            name="details"
+            placeholder="Describe the issue, recent changes, or error messages."
+            required
+          ></textarea>
+        </div>
+
+        <button class="btn primary" type="submit">Submit Request</button>
+
+        <p class="small form-footnote">
+          Paid sessions are confirmed before any charges are applied.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="card">
+    © <span id="yr"></span> Atlantic IT Support. All rights reserved.
+  </div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
