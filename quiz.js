@@ -130,7 +130,10 @@
       .catch(function (err) {
         hide(loadingEl);
         show(startScreen);
-        alert("Could not generate quiz: " + err.message + "\n\nPlease try again.");
+        var msg = err.message.toLowerCase().indexOf("too many") !== -1
+          ? "Rate limit reached. Please wait about 30 seconds and try again."
+          : "Could not generate quiz: " + err.message + "\n\nPlease try again.";
+        alert(msg);
       });
   });
 
@@ -275,7 +278,10 @@
       .catch(function (err) {
         hide(loadingEl);
         show(resultScreen);
-        alert("Could not generate quiz: " + err.message + "\n\nPlease try again.");
+        var msg = err.message.toLowerCase().indexOf("too many") !== -1
+          ? "Rate limit reached. Please wait about 30 seconds and try again."
+          : "Could not generate quiz: " + err.message + "\n\nPlease try again.";
+        alert(msg);
       });
   });
 

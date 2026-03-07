@@ -68,23 +68,38 @@ The "answer" field is the zero-based index of the correct option.`;
 
   try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.9,
-          maxOutputTokens: 8192,
-          responseMimeType: "application/json"
-        }
-      })
+    const requestBody = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.9,
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json"
+      }
     });
+
+    // Retry up to 3 times with exponential backoff for rate limits
+    let res;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: requestBody
+      });
+
+      if (res.status === 429 && attempt < 2) {
+        const wait = (attempt + 1) * 2000; // 2s, 4s
+        await new Promise(r => setTimeout(r, wait));
+        continue;
+      }
+      break;
+    }
 
     if (!res.ok) {
       const errText = await res.text();
       console.error("Gemini API error:", res.status, errText);
+      if (res.status === 429) {
+        return { statusCode: 429, headers, body: JSON.stringify({ error: "Too many requests. Please wait a moment and try again." }) };
+      }
       return { statusCode: 502, headers, body: JSON.stringify({ error: "Quiz generation failed. Status: " + res.status }) };
     }
 
