@@ -1,0 +1,24 @@
+# Local Netlify folder
+.netlify
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env*.local
+
+# Credentials and keys
+*.pem
+*.key
+credentials.json
+.aws/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

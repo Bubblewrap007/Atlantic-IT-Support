@@ -1,6 +1,6 @@
 # Atlantic IT Support
 
-Local IT support for home and small business environments in Atlantic County, NJ. Available on-site or remotely.
+Atlantic IT Support provides technical support services including device troubleshooting, networking setup, malware removal, and smart home configuration for individuals and small businesses.
 
 ## Services
 
