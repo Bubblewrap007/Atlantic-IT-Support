@@ -77,12 +77,27 @@
 
   /* ───────── Fetch Questions ───────── */
 
+  function fetchWithTimeout(url, options, ms) {
+    return new Promise(function (resolve, reject) {
+      var timer = setTimeout(function () {
+        reject(new Error("Request timed out. Please try again."));
+      }, ms);
+      fetch(url, options).then(function (res) {
+        clearTimeout(timer);
+        resolve(res);
+      }).catch(function (err) {
+        clearTimeout(timer);
+        reject(err);
+      });
+    });
+  }
+
   function fetchQuestions(exam, count) {
-    return fetch(API_URL, {
+    return fetchWithTimeout(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ exam: exam, count: count })
-    })
+    }, 15000)
     .then(function (res) {
       if (!res.ok) {
         return res.json().then(function (err) {

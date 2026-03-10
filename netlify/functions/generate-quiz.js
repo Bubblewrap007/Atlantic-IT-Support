@@ -12,7 +12,7 @@ const EXAM_LABELS = {
 
 exports.handler = async function (event) {
   const headers = {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://atlanticitsupport.com",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Content-Type": "application/json"
@@ -71,7 +71,7 @@ The "answer" field is the zero-based index of the correct option.`;
     const requestBody = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: {
-        temperature: 0.9,
+        temperature: 0.5,
         maxOutputTokens: 8192,
         responseMimeType: "application/json"
       }
