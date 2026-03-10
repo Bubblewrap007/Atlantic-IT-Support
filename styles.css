@@ -408,6 +408,63 @@ h3{margin:0 0 8px}
   background: rgba(255,255,255,.04);
 }
 
+/* ===== Project Cards ===== */
+.project-list{
+  display:grid;
+  gap:16px;
+}
+
+.project-card{
+  display:flex;
+  flex-direction:column;
+}
+
+.project-type{
+  font-size:13px;
+  font-weight:700;
+  color:var(--accent);
+  margin:0 0 10px;
+}
+
+.tech-stack{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.tech-tag{
+  font-size:12px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:8px;
+  background:rgba(110,231,255,.08);
+  border:1px solid rgba(110,231,255,.2);
+  color:var(--accent);
+}
+
+/* ===== Skills Grid ===== */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.about-cta-row{
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.project-link{
+  margin-top:12px;
+}
+
+@media(max-width:700px){
+  .skills-grid{ grid-template-columns:1fr; }
+}
+
 /* ===== Contact / Forms ===== */
 .contact-grid{align-items: stretch}
 

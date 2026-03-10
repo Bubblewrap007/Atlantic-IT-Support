@@ -4,18 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
-  <meta name="description" content="About Atlantic IT Support - Meet Shawn, your local IT support specialist"/>
-  <meta property="og:title" content="About - Atlantic IT Support"/>
-  <meta property="og:description" content="About Atlantic IT Support - Meet Shawn, your local IT support specialist"/>
+  <meta name="description" content="Shawn — Software Engineer and IT Professional. Full-stack development, cybersecurity tools, and cloud infrastructure."/>
+  <meta property="og:title" content="About — Shawn | Software Engineer"/>
+  <meta property="og:description" content="Software Engineer and IT Professional. Full-stack development, cybersecurity tools, and cloud infrastructure."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://atlanticitsupport.com/about.html"/>
   <meta property="og:image" content="https://atlanticitsupport.com/Atlantic IT logo.png"/>
   <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="About - Atlantic IT Support"/>
-  <meta name="twitter:description" content="About Atlantic IT Support - Meet Shawn, your local IT support specialist"/>
+  <meta name="twitter:title" content="About — Shawn | Software Engineer"/>
+  <meta name="twitter:description" content="Software Engineer and IT Professional. Full-stack development, cybersecurity tools, and cloud infrastructure."/>
   <link rel="canonical" href="https://atlanticitsupport.com/about.html"/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <title>About - Atlantic IT Support</title>
+  <title>About — Shawn | Software Engineer</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -59,33 +59,115 @@
 <main id="main" class="wrap">
 
 <section class="section">
-  <h1>About Me</h1>
+  <h1>Shawn — Software Engineer</h1>
   <div class="card">
     <p>
-      I'm Shawn — a software engineer and IT professional based in Atlantic County, NJ.
-      I build full-stack applications and security tools while also providing hands-on
-      tech support for homes and small businesses.
+      I'm a software engineer and IT professional based in Atlantic County, NJ.
+      I build full-stack applications and security platforms, and I run a local IT support
+      practice for homes and small businesses.
     </p>
     <p>
-      On the development side, I've built projects like <a href="https://www.securalith.com/" target="_blank" rel="noopener noreferrer"><strong>Securalith</strong></a>,
-      a professional cybersecurity monitoring platform, and the <a href="comptia-guidance.html"><strong>AI-powered CompTIA quiz generator</strong></a>
-      on this site. I enjoy solving real problems with software — whether that's building security tools
-      from scratch or creating useful applications that people actually benefit from.
+      I care about writing clean, secure code that solves real problems. Everything on this
+      site — the serverless API, the security headers, the quiz engine — I built from scratch.
+      I approach professional work the same way.
     </p>
-    <p>
-      My background includes a Computer Science degree, professional IT certifications, and
-      experience across both software development and IT infrastructure. I approach every project
-      and support request with the same care I'd use on my own systems.
-    </p>
+    <div class="about-cta-row">
+      <a class="btn primary" href="https://github.com/Bubblewrap007" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="btn" href="#projects">View Projects</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <h2>Projects</h2>
+
+  <div class="project-list">
+    <div class="card project-card">
+      <h3>Securalith</h3>
+      <p class="project-type">Cybersecurity Platform</p>
+      <p class="small">
+        A full-stack security monitoring and vulnerability assessment platform.
+        Users register assets (domains, IPs, networks), run automated security scans,
+        and track findings through a real-time dashboard. Built to handle multi-tenant
+        environments with role-based access control.
+      </p>
+      <div class="tech-stack">
+        <span class="tech-tag">React</span>
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">PostgreSQL</span>
+        <span class="tech-tag">REST API</span>
+        <span class="tech-tag">OAuth 2.0</span>
+        <span class="tech-tag">RBAC</span>
+      </div>
+      <a class="btn project-link" href="https://www.securalith.com/" target="_blank" rel="noopener noreferrer">Live Site</a>
+    </div>
+
+    <div class="card project-card">
+      <h3>CompTIA Quiz Engine</h3>
+      <p class="project-type">AI-Powered Study Tool</p>
+      <p class="small">
+        A serverless quiz generator that uses the Gemini API to create randomized
+        CompTIA certification practice questions (A+ Core 1 & 2, Network+, Security+).
+        Each question includes instant feedback with detailed explanations. The API proxy
+        runs on Netlify Functions with input validation, rate limiting, and retry logic.
+      </p>
+      <div class="tech-stack">
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Netlify Functions</span>
+        <span class="tech-tag">Gemini API</span>
+        <span class="tech-tag">Serverless</span>
+        <span class="tech-tag">CORS</span>
+      </div>
+      <a class="btn project-link" href="comptia-guidance.html">Try It</a>
+    </div>
+
+    <div class="card project-card">
+      <h3>Atlantic IT Support</h3>
+      <p class="project-type">This Website</p>
+      <p class="small">
+        A static site built with zero dependencies — no frameworks, no build tools.
+        Implements OWASP security headers (CSP, HSTS, CORS lockdown), structured data
+        for SEO, WCAG 2.1 AA accessibility (skip nav, ARIA, keyboard support), and
+        serverless backend functions. Deployed on Netlify with auto-deploy from Git.
+      </p>
+      <div class="tech-stack">
+        <span class="tech-tag">HTML / CSS / JS</span>
+        <span class="tech-tag">Netlify</span>
+        <span class="tech-tag">CSP / HSTS</span>
+        <span class="tech-tag">JSON-LD</span>
+        <span class="tech-tag">WCAG 2.1 AA</span>
+      </div>
+      <a class="btn project-link" href="https://github.com/Bubblewrap007/Atlantic-IT-Support" target="_blank" rel="noopener noreferrer">Source Code</a>
+    </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>Professional Background & Certifications</h2>
-  <p class="small">
-    A summary of my professional qualifications in software engineering and IT.
-  </p>
+  <h2>Technical Skills</h2>
+  <div class="card">
+    <div class="skills-grid">
+      <div>
+        <h3>Languages</h3>
+        <p class="small">JavaScript, Python, HTML, CSS, SQL</p>
+      </div>
+      <div>
+        <h3>Frameworks & Tools</h3>
+        <p class="small">React, Node.js, Express, Netlify, Git</p>
+      </div>
+      <div>
+        <h3>Cloud & Infrastructure</h3>
+        <p class="small">AWS, Netlify Functions, PostgreSQL, REST APIs</p>
+      </div>
+      <div>
+        <h3>Security</h3>
+        <p class="small">OWASP, CSP, CORS, OAuth 2.0, vulnerability assessment</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="section">
+  <h2>Certifications</h2>
   <div class="badges">
     <div class="badge">
       <img src="My degree img.png" alt="Computer Science Graduate" loading="lazy" />
@@ -106,11 +188,6 @@
       <img src="aws-certified-cloud-practitioner.png" alt="AWS Cloud Practitioner Certification" loading="lazy" />
       <span>AWS Cloud Practitioner</span>
     </div>
-  </div>
-
-  <div class="notice">
-    In addition to IT support, I build full-stack web applications and security tools.
-    For development inquiries or collaborations, feel free to reach out.
   </div>
 </section>
 
@@ -140,7 +217,7 @@
 
 <section class="footer">
   <div class="card">
-    © <span id="yr"></span> Atlantic IT Support. All rights reserved.
+    &copy; <span id="yr"></span> Atlantic IT Support. All rights reserved.
   </div>
 </section>
 
