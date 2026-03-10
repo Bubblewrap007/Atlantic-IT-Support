@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' /.netlify/functions/; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
-  <meta name="description" content="Free CompTIA A+, Network+, and Security+ practice quiz generator. Unique questions every time."/>
+  <meta name="description" content="CompTIA A+, Network+, and Security+ practice quiz generator. Unique questions every time."/>
   <link rel="icon" type="image/png" href="favicon.png">
   <title>CompTIA Quiz | Atlantic IT Support</title>
   <link rel="stylesheet" href="styles.css"/>
@@ -38,7 +38,7 @@
     <nav id="mobileMenu" class="links" aria-label="Primary navigation">
       <a href="index.html">Tech Services</a>
       <a href="remote-support.html">Remote Support</a>
-      <a href="comptia-guidance.html">CompTIA Quiz</a>
+      <a href="comptia-guidance.html">CompTIAPrep.net</a>
       <a href="about.html">About</a>
     </nav>
 
@@ -51,23 +51,35 @@
 <section class="hero">
   <div class="grid">
     <div class="card">
-      <h1>CompTIA Quiz Generator</h1>
-      <h3>Free. Unique every time.</h3>
+      <a href="https://comptiaprep.net" target="_blank" rel="noopener">
+        <img src="comptiaprep-logo.jpg" alt="CompTIAPrep.net" class="comptiaprep-brand-logo" />
+      </a>
+      <h3>Unique every time.</h3>
       <p>
         Practice questions for <strong>CompTIA A+ Core 1</strong>,
         <strong>A+ Core 2</strong>, <strong>Network+</strong>, and <strong>Security+</strong>.
         Every quiz is unique with instant feedback and explanations.
       </p>
+      <p class="small" style="margin-top:12px;">
+        AI is reshaping every industry, data centers are scaling faster than ever, and demand for certified IT professionals is surging. Now is the time to get certified and position yourself for the jobs that are growing right now.
+      </p>
 
-      <a class="btn primary" href="#quiz-section" style="margin-top:24px;">Start a Quiz</a>
+      <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
+        <a class="btn primary" href="#quiz-section">Try 5 Free Questions</a>
+        <a class="btn" href="https://comptiaprep.net" target="_blank" rel="noopener">Sign up at CompTIAPrep.net</a>
+      </div>
     </div>
 
     <div class="card">
       <h3>Available exams</h3>
-      <div class="price"><strong>A+ Core 1</strong><span class="small">220-1101</span></div>
-      <div class="price"><strong>A+ Core 2</strong><span class="small">220-1102</span></div>
+      <div class="price"><strong>A+ Core 1</strong><span class="small">220-1201</span></div>
+      <div class="price"><strong>A+ Core 2</strong><span class="small">220-1202</span></div>
       <div class="price"><strong>Network+</strong><span class="small">N10-009</span></div>
       <div class="price"><strong>Security+</strong><span class="small">SY0-701</span></div>
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border);">
+        <div class="price"><strong>Free</strong><span class="small">5 questions per quiz</span></div>
+        <a href="https://comptiaprep.net" class="price" target="_blank" rel="noopener" style="text-decoration:none;"><strong>Unlimited access</strong><span class="small">CompTIAPrep.net &rarr;</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -75,8 +87,27 @@
 <section id="quiz-section" class="section">
   <h2>Quiz Generator</h2>
 
+  <!-- ───── Paywall ───── -->
+  <div id="quizPaywall" class="card quiz-card hidden">
+    <h3>Unlock Unlimited Quizzes</h3>
+    <p class="small">Unlimited quizzes, more questions, and full exam coverage.</p>
+
+    <ul class="small paywall-features">
+      <li>Unlimited quizzes for all 4 exams</li>
+      <li>Choose 5, 10, 15, or 20 questions per quiz</li>
+      <li>Instant feedback with explanations</li>
+      <li>New questions generated every time</li>
+    </ul>
+
+    <a href="https://comptiaprep.net" class="btn primary paywall-buy" target="_blank" rel="noopener">Try my free CompTIA Prep training app</a>
+  </div>
+
   <!-- ───── Start Screen ───── -->
-  <div id="quizStart" class="card quiz-card">
+  <div id="quizStart" class="card quiz-card hidden">
+    <div id="freeBanner" class="free-banner">
+      Free Preview — 5 questions
+    </div>
+
     <h3>Choose your exam</h3>
     <div class="exam-select">
       <button class="exam-btn" data-exam="aplus_core1">
@@ -99,14 +130,6 @@
         <span class="exam-label">Security+</span>
         <span class="small">Threats, crypto, access control</span>
       </button>
-    </div>
-
-    <h3 style="margin-top:20px;">Number of questions</h3>
-    <div class="length-select">
-      <button class="length-btn" data-length="5">5</button>
-      <button class="length-btn" data-length="10">10</button>
-      <button class="length-btn" data-length="15">15</button>
-      <button class="length-btn" data-length="20">20</button>
     </div>
 
     <button id="beginQuiz" class="btn primary quiz-begin" disabled>Begin Quiz</button>
@@ -167,6 +190,11 @@
     <p class="result-score"><span id="finalScore">0</span> / <span id="finalTotal">0</span> correct</p>
     <p id="finalMsg" class="result-msg"></p>
 
+    <div id="resultUpgrade" class="result-upgrade">
+      <p class="small">Want unlimited quizzes with up to 20 questions?</p>
+      <a href="https://comptiaprep.net" class="btn primary" target="_blank" rel="noopener">Try my free CompTIA Prep training app</a>
+    </div>
+
     <div class="result-actions">
       <button id="retryBtn" class="btn primary">Try Again</button>
       <button id="newQuizBtn" class="btn">New Quiz</button>
@@ -181,7 +209,7 @@
       <li>Unique questions generated every time you take a quiz</li>
       <li>Covers A+ Core 1, A+ Core 2, Network+, and Security+ exam objectives</li>
       <li>Instant feedback with explanations for every answer</li>
-      <li>No sign-up, no tracking, completely free</li>
+      <li>No sign-up or account required</li>
       <li>Questions are for practice only and are not from actual exams</li>
     </ul>
   </div>

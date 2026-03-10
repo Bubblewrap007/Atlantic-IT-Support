@@ -1,11 +1,11 @@
 // Netlify serverless function — proxies quiz requests to Gemini API
 
 const ALLOWED_EXAMS = ["aplus_core1", "aplus_core2", "networkplus", "securityplus"];
-const MAX_QUESTIONS = 20;
+const MAX_QUESTIONS = 5;
 
 const EXAM_LABELS = {
-  aplus_core1: "CompTIA A+ Core 1 (220-1101) — covers mobile devices, networking, hardware, virtualization, cloud computing, and hardware/network troubleshooting",
-  aplus_core2: "CompTIA A+ Core 2 (220-1102) — covers operating systems, security, software troubleshooting, and operational procedures",
+  aplus_core1: "CompTIA A+ Core 1 (220-1201) — covers mobile devices, networking, hardware, virtualization, cloud computing, and hardware/network troubleshooting",
+  aplus_core2: "CompTIA A+ Core 2 (220-1202) — covers operating systems, security, software troubleshooting, and operational procedures",
   networkplus: "CompTIA Network+ (N10-009) — covers network fundamentals, implementations, operations, security, and troubleshooting",
   securityplus: "CompTIA Security+ (SY0-701) — covers threats, vulnerabilities, architecture, operations, and incident response"
 };
@@ -35,7 +35,7 @@ exports.handler = async function (event) {
   try {
     const body = JSON.parse(event.body);
     exam = body.exam;
-    count = Math.min(Math.max(parseInt(body.count, 10) || 10, 1), MAX_QUESTIONS);
+    count = Math.min(Math.max(parseInt(body.count, 10) || 5, 1), MAX_QUESTIONS);
   } catch (e) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid request body" }) };
   }

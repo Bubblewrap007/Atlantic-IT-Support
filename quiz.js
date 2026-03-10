@@ -1,9 +1,10 @@
-// quiz.js — CompTIA A+, Network+, Security+ Quiz Generator
+// quiz.js — CompTIA A+, Network+, Security+ Quiz Generator (free 5-question preview)
 
 (function () {
   "use strict";
 
   var API_URL = "/.netlify/functions/generate-quiz";
+  var QUIZ_LENGTH = 5;
 
   /* ───────── State ───────── */
 
@@ -12,17 +13,16 @@
   var currentIndex = 0;
   var score = 0;
   var answered = false;
-  var quizLength = 10;
 
   /* ───────── DOM ───────── */
 
   var startScreen   = document.getElementById("quizStart");
   var quizScreen    = document.getElementById("quizActive");
   var resultScreen  = document.getElementById("quizResult");
+  var paywallScreen = document.getElementById("quizPaywall");
   if (!startScreen) return; // not on quiz page
 
   var examBtns      = document.querySelectorAll("[data-exam]");
-  var lengthBtns    = document.querySelectorAll("[data-length]");
   var beginBtn      = document.getElementById("beginQuiz");
 
   var progressBar   = document.getElementById("progressBar");
@@ -52,40 +52,28 @@
     return arr;
   }
 
-  function show(el) { el.classList.remove("hidden"); }
-  function hide(el) { el.classList.add("hidden"); }
+  function show(el) { if (el) el.classList.remove("hidden"); }
+  function hide(el) { if (el) el.classList.add("hidden"); }
 
-  /* ───────── Exam & Length Selection ───────── */
+  function hideAllScreens() {
+    hide(startScreen);
+    hide(quizScreen);
+    hide(resultScreen);
+    hide(paywallScreen);
+    hide(loadingEl);
+  }
+
+  /* ───────── Exam Selection ───────── */
 
   examBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
       examBtns.forEach(function (b) { b.classList.remove("selected"); });
       btn.classList.add("selected");
       currentExam = btn.dataset.exam;
-      updateBeginState();
-    });
-  });
-
-  lengthBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      lengthBtns.forEach(function (b) { b.classList.remove("selected"); });
-      btn.classList.add("selected");
-      quizLength = parseInt(btn.dataset.length, 10);
-      updateBeginState();
-    });
-  });
-
-  // default length selection
-  lengthBtns.forEach(function (btn) {
-    if (parseInt(btn.dataset.length, 10) === quizLength) btn.classList.add("selected");
-  });
-
-  function updateBeginState() {
-    if (currentExam) {
       beginBtn.disabled = false;
       beginBtn.classList.add("ready");
-    }
-  }
+    });
+  });
 
   /* ───────── Fetch Questions ───────── */
 
@@ -113,22 +101,20 @@
   beginBtn.addEventListener("click", function () {
     if (!currentExam) return;
 
-    hide(startScreen);
-    hide(quizScreen);
-    hide(resultScreen);
+    hideAllScreens();
     show(loadingEl);
 
-    fetchQuestions(currentExam, quizLength)
+    fetchQuestions(currentExam, QUIZ_LENGTH)
       .then(function (questions) {
         pool = questions;
         currentIndex = 0;
         score = 0;
-        hide(loadingEl);
+        hideAllScreens();
         show(quizScreen);
         renderQuestion();
       })
       .catch(function (err) {
-        hide(loadingEl);
+        hideAllScreens();
         show(startScreen);
         var msg = err.message.toLowerCase().indexOf("too many") !== -1
           ? "Rate limit reached. Please wait about 30 seconds and try again."
@@ -225,7 +211,7 @@
   });
 
   function showResults() {
-    hide(quizScreen);
+    hideAllScreens();
     show(resultScreen);
 
     var total = pool.length;
@@ -263,20 +249,20 @@
   /* ───────── Retry / New Quiz ───────── */
 
   retryBtn.addEventListener("click", function () {
-    hide(resultScreen);
+    hideAllScreens();
     show(loadingEl);
 
-    fetchQuestions(currentExam, quizLength)
+    fetchQuestions(currentExam, QUIZ_LENGTH)
       .then(function (questions) {
         pool = questions;
         currentIndex = 0;
         score = 0;
-        hide(loadingEl);
+        hideAllScreens();
         show(quizScreen);
         renderQuestion();
       })
       .catch(function (err) {
-        hide(loadingEl);
+        hideAllScreens();
         show(resultScreen);
         var msg = err.message.toLowerCase().indexOf("too many") !== -1
           ? "Rate limit reached. Please wait about 30 seconds and try again."
@@ -290,7 +276,7 @@
     examBtns.forEach(function (b) { b.classList.remove("selected"); });
     beginBtn.disabled = true;
     beginBtn.classList.remove("ready");
-    hide(resultScreen);
+    hideAllScreens();
     show(startScreen);
   });
 

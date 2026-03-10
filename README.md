@@ -14,7 +14,7 @@ Atlantic IT Support provides technical support services including device trouble
 
 Free, AI-powered practice quizzes for CompTIA certifications:
 
-- **CompTIA A+** (220-1101 & 220-1102)
+- **CompTIA A+** (220-1201 & 220-1202)
 - **CompTIA Network+** (N10-009)
 - **CompTIA Security+** (SY0-701)
 

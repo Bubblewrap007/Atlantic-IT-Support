@@ -835,6 +835,10 @@ option[value=""]{ color: var(--muted); }
   .result-actions .btn{ min-width:auto; }
 }
 
+@media (max-width:520px){
+  .plan-cards{ grid-template-columns:1fr; max-width:280px; margin-left:auto; margin-right:auto; }
+}
+
 /* Small phones */
 @media (max-width:480px){
   .logo{
@@ -851,4 +855,253 @@ option[value=""]{ color: var(--muted); }
     right:16px;
     min-width: 220px;
   }
+}
+
+/* CompTIAPrep brand logo */
+.comptiaprep-brand-logo{
+  max-width:320px;
+  height:auto;
+  display:block;
+  margin-bottom:12px;
+  border-radius:14px;
+}
+
+@media (max-width:700px){
+  .comptiaprep-brand-logo{ max-width:200px; }
+}
+
+/* ═══════════ Paywall ═══════════ */
+
+.paywall-features{
+  list-style:none;
+  padding:0;
+  margin:0 0 24px;
+  text-align:left;
+  max-width:340px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.paywall-features li{
+  padding:6px 0 6px 24px;
+  position:relative;
+  color:var(--muted);
+}
+
+.paywall-features li::before{
+  content:"\2713";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-weight:700;
+}
+
+/* Plan cards */
+
+.plan-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:20px 0;
+}
+
+.plan-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  padding:20px 12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  cursor:pointer;
+  transition: all 0.25s ease;
+  position:relative;
+}
+
+.plan-card:hover{
+  background:rgba(110,231,255,.08);
+  border-color:rgba(110,231,255,.3);
+}
+
+.plan-card.selected{
+  background:rgba(110,231,255,.12);
+  border-color:var(--accent);
+  box-shadow: 0 0 16px rgba(110,231,255,.2);
+}
+
+.plan-card.best-value{
+  border-color:rgba(167,139,250,.4);
+}
+
+.plan-card.best-value.selected{
+  border-color:var(--accent2);
+  box-shadow: 0 0 16px rgba(167,139,250,.3);
+}
+
+.plan-badge{
+  position:absolute;
+  top:-10px;
+  font-size:11px;
+  font-weight:700;
+  padding:2px 10px;
+  border-radius:8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#06101b;
+}
+
+.plan-name{
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.plan-price{
+  font-size:32px;
+  font-weight:800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.plan-period{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.paywall-buy{
+  display:block;
+  width:100%;
+  max-width:320px;
+  margin:0 auto 20px;
+  padding:14px 24px;
+  font-size:16px;
+}
+
+.paywall-buy:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+}
+
+.paywall-trial-section{
+  border-top:1px solid var(--border);
+  padding-top:20px;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.paywall-trial-input{
+  display:flex;
+  gap:8px;
+  max-width:340px;
+  margin:10px auto 0;
+}
+
+.paywall-trial-input input{
+  flex:1;
+  padding:10px 14px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  font-size:14px;
+}
+
+.paywall-code-section{
+  border-top:1px solid var(--border);
+  padding-top:20px;
+  text-align:center;
+}
+
+.paywall-code-input{
+  display:flex;
+  gap:8px;
+  max-width:340px;
+  margin:10px auto 0;
+}
+
+.paywall-code-input input{
+  flex:1;
+  padding:10px 14px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  font-family:monospace;
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.paywall-code-input input::placeholder{
+  text-transform:none;
+  letter-spacing:normal;
+}
+
+.code-error{
+  color:#ff6b6b;
+  margin-top:8px;
+}
+
+/* Access code success */
+
+.access-code-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:12px 0 16px;
+}
+
+.access-code-display code{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:4px;
+  padding:12px 20px;
+  background:var(--bg);
+  border:2px solid var(--accent);
+  border-radius:12px;
+  color:var(--accent);
+}
+
+/* Free banner */
+
+.free-banner{
+  background: linear-gradient(135deg, rgba(110,231,255,0.1), rgba(167,139,250,0.1));
+  border:1px solid rgba(110,231,255,0.2);
+  border-radius:10px;
+  padding:10px 16px;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+
+/* Access status */
+
+.access-status{
+  text-align:center;
+  margin-bottom:12px;
+  padding:8px 16px;
+  background:rgba(110,231,255,0.06);
+  border-radius:10px;
+  border:1px solid rgba(110,231,255,0.15);
+}
+
+/* Result upgrade prompt */
+
+.result-upgrade{
+  margin:20px 0;
+  padding:16px;
+  background: linear-gradient(135deg, rgba(110,231,255,0.08), rgba(167,139,250,0.08));
+  border:1px solid rgba(110,231,255,0.2);
+  border-radius:12px;
+  text-align:center;
+}
+
+.result-upgrade .btn{
+  margin-top:10px;
 }
